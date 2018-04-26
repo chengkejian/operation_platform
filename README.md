@@ -1,0 +1,2 @@
+# operation_platform
+这是根据Flask Web开发和网上的博客等等使用flask+bootstarp做的，包括用户管理，Android打包和上传，日志记录等，但是可能不适合别人，因为Android的打包还有依赖本地环境，所以只能给大家一个参考。
