@@ -1,0 +1,120 @@
+<!--{% extends "bootstrap/base.html" %}-->
+{% block title %}Mobim{% endblock %}
+{% block head %}
+{{ super() }}
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'images/mobim.ico') }}"
+type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename = 'images/mobim.ico') }}"
+type="image/x-icon">
+{%- block styles %}
+<!-- Bootstrap -->
+<!--<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet"> -->
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/fileinput.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='css/formValidation.css') }}" rel="stylesheet">
+{%- endblock styles %}
+{% endblock head %}
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+<div class="container">
+<div class="navbar-header">
+<button type="button" class="navbar-toggle"
+data-toggle="collapse" data-target=".navbar-collapse">
+<span class="sr-only">Toggle navigation</span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+<span class="icon-bar"></span>
+</button>
+<a class="navbar-brand" href="/">Mobim</a>
+</div>
+<div class="navbar-collapse collapse">
+<ul class="nav navbar-nav">
+<li class="dropdown">
+    <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+        Android
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+            <li><a href="/android/androidstep.html">Android发布说明</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ url_for('main.androidpack',platform='official',version='all',replace_ico=3,
+                    package_link='all') }}">Android打包</a></li>
+    </ul>
+</li>
+<li class="dropdown">
+    <a href="/" class="dropdown-toggle" data-toggle="dropdown">
+        IOS
+        <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu">
+            <li><a href="/ios/iosstep.html">IOS发布说明</a></li>
+            <li class="divider"></li>
+            <li><a href="/ios/iospack.html">IOS打包</a></li>
+            <li class="divider"></li>
+            <li><a href="/ios/iospublish.html">IOS上传</a></li>
+    </ul>
+</li>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+
+    {% if current_user.is_authenticated %}
+    <li class="dropdown">
+        <a href="{{ url_for('auth.logout') }}" class="dropdown-toggle" data-toggle="dropdown">
+            <img class="img-rounded profile-thumbnail" src="{{ current_user .gravatar(size=18) }}">
+            {{ current_user.username }}
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="{{ url_for('admin.user',username=current_user.username) }}">个人资料</a></li>
+            {% if current_user.is_admin() %}
+            <li><a href="{{ url_for('admin.account_manage') }}">用户账户</a></li>
+            {% endif %}
+            <li><a href="{{ url_for('auth.repasswd') }}">修改密码</a></li>
+            <li class="divider"></li>
+            <li><a href="{{ url_for('auth.logout') }}">Sign Out</a></li>
+    </li>
+    {% else %}
+    <li><a href="{{ url_for('auth.login') }}">Sign In</a></li>
+    {% endif %}
+        </ul>
+</ul>
+</div>
+</div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+{{ moment.include_moment() }}
+{{ pagedown.include_pagedown() }}
+<script src="{{ url_for('static', filename='js/admin.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin_form.js') }}"></script>
+<script src="{{ url_for('static', filename='js/fileinput.js') }}"></script>
+<script src="{{ url_for('static', filename='js/fileinput_locale_zh.js') }}"></script>
+<script src="{{ url_for('static', filename='js/formvalidation/formValidation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/formvalidation/bootstrap.js') }}"></script>
+{% endblock %}
+{% block content %}
+<div class="container">
+{% for category,message in get_flashed_messages(with_categories=true) %}
+{% if category =='message' %}
+    <div class="alert alert-warning">
+{% else %}
+    <div class="alert alert-{{ category }}">
+{% endif %}
+<button type="button" class="close" data-dismiss="alert">&times;</button>
+{% if category =='danger' %}
+    <strong>Error:</strong>{{ message }}
+{% else %}
+    {{ message }}
+{% endif %}
+</div>
+{% endfor %}
+
+{% block page_content %}
+{% endblock page_content %}
+
+</div>
+{% endblock content %}

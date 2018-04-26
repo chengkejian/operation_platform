@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mobim-Login</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename = 'images/mobim.ico') }}"
+        type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename = 'images/mobim.ico') }}"
+        type="image/x-icon">
+<!--<link href="{{bootstrap_find_resource('css/bootstrap.css', cdn='bootstrap')}}" rel="stylesheet">-->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/common.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/formValidation.css') }}" rel="stylesheet">
+</head>
+<body background="{{ url_for('static', filename='images/background.jpg') }}">
+<div class="container login-page">
+    <div class="row">
+        <div class="col-md-4 col-lg-offset-4">
+            {% for category,message in get_flashed_messages(with_categories=true) %}
+                {% if category =='message' %}
+                    <div class="alert alert-warning">
+                {% else %}
+                    <div class="alert alert-{{ category }}">
+                {% endif %}
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                {% if category =='danger' %}
+                    <strong>Error:&nbsp;&nbsp;</strong>{{ message }}
+                {% else %}
+                    {{ message }}
+                {% endif %}
+                    </div>
+            {% endfor %}
+            <h3 class="text-center">Mobim-Login</h3>
+                <div class="col-md-10">
+                    <form class="form-horizontal" role="form" method="post" action="{{ url_for('auth.login') }}">
+                        {{ form.csrf_token }}
+                        <div class="form-group">
+                            {{ form.name.label(class='col-sm-3 control-label') }}
+                            <div class="col-sm-9">
+                            <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            {{ form.name(class='form-control', placeholder='请输入您的用户名', required='') }}
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form.password.label(class='col-sm-3 control-label') }}
+                            <div class="col-sm-9">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                                {{ form.password(class='form-control', placeholder='请输入您的密码', required='') }}
+                            </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-3 col-sm-9">
+                                <button type="submit" class="btn btn-default">登录</button>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                {{ form.remember_me }}
+                                {{ form.remember_me.label }}
+                            </div>
+                        </div>
+                    </form>
+                    <div class="col-md-8 col-md-offset-2">
+                        <a class="btn" onclick="RegisterUser()">
+                            注册
+                        </a>|
+                        <a class="btn" onclick="ForgetPasswd()">
+                            忘记密码?
+                        </a>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for register -->
+<div class="modal fade" id="registerModel" tabindex="-1" role="dialog" aria-labelledby="registerModleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" >
+            <span class="glyphicon glyphicon-paperclip"></span> 注册</h4>
+      </div>
+      <form id="registerForm" method="post" action="{{ url_for('auth.register') }}">
+        <div class="modal-body">
+            <div class="form-group">
+                {{ register_form.hidden_tag() }}
+                {{ register_form.username.label(class='control-label') }}
+                {{ register_form.username(class='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ register_form.email.label(class='control-label') }}
+                {{ register_form.email(class='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ register_form.password.label(class='control-label') }}
+                {{ register_form.password(class='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ register_form.password2.label(class='control-label') }}
+                {{ register_form.password2(class='form-control') }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="registerClick" type="submit" class="btn btn-primary">注册</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal for register -->
+<div class="modal fade" id="fopasswordModel" tabindex="-1" role="dialog" aria-labelledby="fopasswordModleLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" >
+            <span class="glyphicon glyphicon-erase"></span> 找回密码</h4>
+      </div>
+      <form id="fopasswordForm" method="post" action="{{ url_for('auth.fopasswd') }}">
+        <div class="modal-body">
+            <div class="form-group">
+                {{ fopassword_form.hidden_tag() }}
+                {{ fopassword_form.name.label(class='control-label') }}
+                {{ fopassword_form.name(class='form-control') }}
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button id="fopasswordClick" type="submit" class="btn btn-primary">提交</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<!--<script src="{{bootstrap_find_resource('jquery.js', cdn='jquery')}}"></script> -->
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+<!--<script src="{{bootstrap_find_resource('js/bootstrap.js', cdn='bootstrap')}}"></script> -->
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{{ url_for('static', filename='js/formvalidation/formValidation.js') }}"></script>
+<script src="{{ url_for('static', filename='js/formvalidation/bootstrap.js') }}"></script>
+<script src="{{ url_for('static', filename='js/admin_form.js') }}"></script>
+</body>
+</html>

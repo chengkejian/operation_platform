@@ -1,0 +1,2 @@
+Dear admin:
+      new user {{ user }} login just now

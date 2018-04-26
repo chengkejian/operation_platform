@@ -1,0 +1,173 @@
+body {
+    /*background: #F0F0F0;*/
+    background: url('../images/background.jpg');
+    /*min-height:900px;*/
+    padding: 0 0 58px;
+}
+
+.login-page {
+    margin-top: 8%;
+}
+
+.entry-box {
+    background: #fff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #e6e6e6;
+    border-radius: 4px;
+}
+.table-background{
+    background: #fff;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+	background: #474E5D;
+	width: 100%;
+	padding: 15px 0  5px;
+	font-size: 13px;
+}
+.footer-content {
+    text-align: center;
+    color: #8a6d3b;
+}
+div.pagination {
+    width: 100%;
+    text-align: center;
+    padding: 0px;
+    margin: 0px;
+}
+.footer-content a {
+    text-decoration: none;
+}
+/*CSS For floatButton*/
+.floatButton {
+    position: fixed;
+    top: 50%;
+    right: 0;
+    z-index: 9999999;
+}
+
+/*CSS For POST*/
+div.profile-thumbnail {
+    position: absolute;
+}
+
+.profile-header {
+    min-height: 260px;
+    margin-left: 280px;
+}
+ul.posts {
+    list-style-type: none;
+    padding: 40px 0 0;
+    border-top: 1px solid #e0e0e0;
+}
+ul.posts li.post {
+    padding: 30px;
+    border-bottom: 1px solid #e0e0e0;
+
+}
+ul.posts li.post:hover {
+    background-color: #f0f0f0;
+}
+div.posts-count,div.post-footer {
+    position:absolute;
+	right:150px;
+	z-index: 1;
+}
+p.posts-count-botton {
+}
+div.post-date {
+    float: right;
+}
+div.post-author {
+    position:relative;
+	left:50px;
+    font-weight: bold;
+}
+div.post-body {
+    position:relative;
+	left:50px;
+	max-width:1000px;
+}
+div.post-thumbnail {
+    position: absolute;
+}
+div.post-content {
+    margin-left: 48px;
+    min-height: 48px;
+}
+
+a.no_underline {
+    text-decoration:none;
+}
+
+.table > tbody > tr > th.center{
+    text-align:center;
+    vertical-align: middle;
+    padding:0px 8px 0px;
+
+}
+
+.search_form{
+    margin-bottom: 0px;
+    width: 242px;
+}
+.search_div{
+    display: inline;
+    width: 270px;
+}
+.ard_tabletop{
+    display: inline;
+    padding: 0px 5px 0px;
+}
+
+#package_sum{
+    padding-top: 30px;
+    padding-left: 5%;
+}
+
+.package_inline{
+    display: inline;
+}
+#package_status{
+    padding-top: 15px;
+    padding-left: 0px;
+}
+
+.package_error{
+    padding-left: 8%;
+}
+
+.upload_error{
+    padding-left: 8%;
+}
+
+
+#FilterChannelForm{
+    display: inline;
+}
+
+#filterchannel{
+    padding-top: 15px;
+    padding-bottom: 5px;
+}
+
+.filter-control{
+    display: inline;
+    padding-right: 5px;
+    padding-left: 15px;
+}
+
+.filter-control2{
+    display: inline;
+    padding-left: 120px;
+}
+.container{
+    width: auto;
+    padding-right:3%;
+    padding-left:1%;
+}
